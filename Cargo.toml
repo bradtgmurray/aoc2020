@@ -1,5 +1,5 @@
 [package]
-name = "aoc2020-1"
+name = "aoc2020"
 version = "0.1.0"
 authors = ["Brad Murray <brad@faire.com>"]
 edition = "2018"

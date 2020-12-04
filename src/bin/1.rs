@@ -1,15 +1,10 @@
-use std::fs::File;
-use std::io::{self, BufRead};
-use std::path::Path;
+use std::io;
 
-fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
-    where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
-}
+extern crate aoc2020;
+use aoc2020::utils;
 
 fn read_input_numbers() -> Result<Vec<i32>, io::Error> {
-    let lines = read_lines("./input.txt")?;
+    let lines = utils::read_lines("./input_data/1.txt")?;
 
     Ok(lines
         .filter_map(Result::ok)
