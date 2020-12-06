@@ -79,38 +79,21 @@ fn validate_passport_part2(passport: &String) -> bool {
 }
 
 fn main() {
-    let lines = utils::read_lines("./input_data/4.txt").unwrap()
-        .map(|l| l.unwrap());
-
-    let mut passport_builder: String = String::new();
-
     let mut valid_passport_count_part1 = 0;
     let mut valid_passport_count_part2 = 0;
 
-    for line in lines {
-        if line.is_empty() {
-            if validate_passport(&passport_builder) {
-                valid_passport_count_part1 += 1;
-            }
-            if validate_passport_part2(&passport_builder) {
-                valid_passport_count_part2 += 1;
-            }
-
-            passport_builder.clear();
-        } else {
-            passport_builder.push(' ');
-            passport_builder.push_str(line.as_str());
+    utils::read_groups("./input_data/4.txt", |s| {
+        if validate_passport(s) {
+            valid_passport_count_part1 += 1;
         }
-    }
-
-    // Clear out the last one
-    if validate_passport(&passport_builder) {
-        valid_passport_count_part1 += 1;
-    }
-    if validate_passport_part2(&passport_builder) {
-        valid_passport_count_part2 += 1;
-    }
+        if validate_passport_part2(s) {
+            valid_passport_count_part2 += 1;
+        }
+    });
 
     println!("Part 1 Valid Passports Count: {}", valid_passport_count_part1);
-    println!("Part 1 Valid Passports Count: {}", valid_passport_count_part2);
+    println!("Part 2 Valid Passports Count: {}", valid_passport_count_part2);
 }
+
+// Part 1 Valid Passports Count: 196
+// Part 2 Valid Passports Count: 114

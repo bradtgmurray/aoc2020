@@ -7,3 +7,24 @@ pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
     let file = File::open(filename)?;
     Ok(io::BufReader::new(file).lines())
 }
+
+pub fn read_groups<F: FnMut(&String) -> ()>(filename: &str, mut group_fn: F) {
+    let lines = read_lines(filename).unwrap()
+        .map(|l| l.unwrap());
+
+    let mut builder: String = String::new();
+
+    for line in lines {
+        if line.is_empty() {
+            group_fn(&builder);
+            builder.clear();
+        } else {
+            builder.push(' ');
+            builder.push_str(line.as_str());
+        }
+    }
+
+    // Clear out the last one
+    group_fn(&builder);
+}
+
