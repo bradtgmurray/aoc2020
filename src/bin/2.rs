@@ -15,7 +15,7 @@ fn is_password_valid_part2(min: usize, max: usize, required_char: char, password
     first_index_match && !second_index_match || !first_index_match && second_index_match
 }
 
-fn parse_line(line: String) -> Input {
+fn parse_line(line: &String) -> Input {
     let parts: Vec<&str> = line.split(":").collect();
     let spec_parts: Vec<&str> = parts[0].split(" ").collect();
     let range_parts: Vec<usize> =
@@ -26,11 +26,9 @@ fn parse_line(line: String) -> Input {
 }
 
 fn main() {
-    let lines = utils::read_lines("./input_data/2.txt")
-        .unwrap()
-        .map(|l| l.unwrap());
+    let lines = utils::read_lines("./input_data/2.txt");
 
-    let inputs: Vec<Input> = lines.map(|line| parse_line(line)).collect();
+    let inputs: Vec<Input> = lines.iter().map(|line| parse_line(line)).collect();
 
     let failing_passwords_part1 = inputs.iter().filter(|input| -> bool {
         let (min, max, required_char, password) = input;

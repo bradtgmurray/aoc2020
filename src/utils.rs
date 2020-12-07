@@ -2,15 +2,17 @@ use std::fs::File;
 use std::io::{self, BufRead};
 use std::path::Path;
 
-pub fn read_lines<P>(filename: P) -> io::Result<io::Lines<io::BufReader<File>>>
+pub fn read_lines<P>(filename: P) -> Vec<String>
     where P: AsRef<Path>, {
-    let file = File::open(filename)?;
-    Ok(io::BufReader::new(file).lines())
+    let file = File::open(filename).unwrap();
+    let reader = io::BufReader::new(file);
+    let lines: Vec<String> = reader.lines().map(|l| l.unwrap()).collect();
+
+    lines
 }
 
 pub fn read_groups<F: FnMut(&String) -> ()>(filename: &str, mut group_fn: F) {
-    let lines = read_lines(filename).unwrap()
-        .map(|l| l.unwrap());
+    let lines = read_lines(filename);
 
     let mut builder: String = String::new();
 

@@ -1,15 +1,11 @@
-use std::io;
-
 extern crate aoc2020;
+
 use aoc2020::utils;
 
-fn read_input_numbers() -> Result<Vec<i32>, io::Error> {
-    let lines = utils::read_lines("./input_data/1.txt")?;
+fn read_input_numbers() -> Vec<i32> {
+    let lines = utils::read_lines("./input_data/1.txt");
 
-    Ok(lines
-        .filter_map(Result::ok)
-        .map(|line| line.parse::<i32>().unwrap())
-        .collect())
+    lines.iter().map(|line| line.parse::<i32>().unwrap()).collect()
 }
 
 const TARGET_SUM: i32 = 2020;
@@ -43,7 +39,7 @@ fn find_three(numbers: &[i32]) -> Option<i32> {
 }
 
 fn main() {
-    let mut numbers = read_input_numbers().unwrap();
+    let mut numbers = read_input_numbers();
     numbers.sort_unstable();
 
     let find_two_solution = find_two(&*numbers, TARGET_SUM);

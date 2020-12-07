@@ -32,12 +32,11 @@ fn get_seat_id(s: &str) -> usize {
 }
 
 fn main() {
-    let lines = utils::read_lines("./input_data/5.txt").unwrap()
-        .map(|l| l.unwrap());
+    let lines = utils::read_lines("./input_data/5.txt");
 
    let mut seats_taken = [false; 1024];
 
-    let highest = lines.fold(0, |highest: u32, line| -> u32 {
+    let highest = lines.iter().fold(0, |highest: u32, line| -> u32 {
         let seat_id = get_seat_id(&line);
         seats_taken[seat_id] = true;
 

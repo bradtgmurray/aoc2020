@@ -13,9 +13,7 @@ fn count_trees(right: usize, down: usize, lines: &Vec<String>) -> usize {
 }
 
 fn main() {
-    let lines: Vec<String> = utils::read_lines("./input_data/3.txt").unwrap()
-        .map(|l| l.unwrap())
-        .collect();
+    let lines = utils::read_lines("./input_data/3.txt");
 
     let part1_trees_hit = count_trees(3, 1, &lines);
 
