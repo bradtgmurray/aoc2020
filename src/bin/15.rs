@@ -1,6 +1,5 @@
 extern crate aoc2020;
 
-// use aoc2020::utils;
 use std::collections::HashMap;
 
 fn part1(data: Vec<usize>, num_rounds: usize) -> usize {
